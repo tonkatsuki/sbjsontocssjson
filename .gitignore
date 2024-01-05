@@ -1,3 +1,6 @@
+# Don't bring in json files for testing
+*.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
