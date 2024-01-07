@@ -1,26 +1,18 @@
 import json
-
-oldGroupsToNewGroups = {
-    "serveradmin": "#css/serveradmin",
-    "supporteradmin": "#css/supporteradmin",
-    "officer": "#css/officer",
-    "root": "#css/admin",
-}
-
-immunityGroup = {
-    "serveradmin": "65",
-    "supporteradmin": "75",
-    "officer": "85",
-    "root": "100",
-}
+import os
+from datetime import datetime
 
 
-def json_make(user, commid, srv_group):
-    group = oldGroupsToNewGroups.get(srv_group)
-    immunity = immunityGroup.get(srv_group)
-    data = {
-        user: {"identity": commid, "immunity": immunity, "groups": [group]},
-    }
+def json_make():
+    # Create a filename based on the current date and time
+    newfilename = datetime.now().strftime("%Y-%m-%d_%H-%M-%S.json")
 
-    json_data = json.dumps(data, indent=2)
-    print(json_data)
+    # Check if file already exists
+    if not os.path.isfile(newfilename):
+        # Create a new JSON file with an empty dictionary
+        with open(newfilename, "w") as file:
+            json.dump({}, file)
+        print(f"Created new file: {newfilename}")
+        return newfilename
+    else:
+        print(f"File {newfilename} already exists.")
